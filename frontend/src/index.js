@@ -5,10 +5,11 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import './index.css'
-import store from './store'
+import configureStore from './store/configureStore'
 import Routes from './components/Routes'
 import registerServiceWorker from './registerServiceWorker'
 
+const store = configureStore()
 const history = syncHistoryWithStore(createBrowserHistory(), store)
 
 ReactDOM.render(

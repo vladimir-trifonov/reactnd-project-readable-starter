@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Categories from './components/Categories'
+import Posts from './components/Posts'
 import './App.css'
 
 class App extends Component {
@@ -9,10 +10,9 @@ class App extends Component {
         <header className='App-header'>
           <h1 className='App-title'>Blog</h1>
         </header>
-        <div className='md-grid'>
-          <h2 className='md-cell md-cell--12 md-text-container'>
-            <Categories />
-          </h2>
+        <div className='md-grid md-cell--6'>
+          <Categories />
+          <Posts />
         </div>
       </div>
     )

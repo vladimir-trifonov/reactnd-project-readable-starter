@@ -1,25 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { List, ListItem } from 'react-md/lib/Lists'
 import Subheader from 'react-md/lib/Subheaders'
+import { loadCategories } from '../actions/categories'
 
-function CategoriesList({ categories }) {
-  return (
-    <div className='categories'>
-      <div className='md-grid'>
-        <List className='md-cell md-paper md-paper--1'>
-          <Subheader primaryText='Categories' />
-          {categories.map(category => (
-            <ListItem key={category.id} primaryText={category.title} />
-          ))}
-        </List>
-      </div>
-    </div>
-  )
+class Categories extends Component {
+  componentDidMount() {
+    this.props.loadCategories()
+  }
+
+  render() {
+    return (
+      <List className='md-cell md-cell--6 md-paper md-paper--1'>
+        <Subheader primaryText='Categories' />
+        {this.props.categories.map(category => (
+          <ListItem key={category.name} primaryText={category.name} />
+        ))}
+      </List>
+    )
+  }
 }
 
-CategoriesList.propTypes = {
+Categories.propTypes = {
   categories: PropTypes.array.isRequired
 }
 
@@ -30,12 +33,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    loadCategories: () => loadCategories(dispatch)
+  }
 }
 
-const Categories = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CategoriesList)
-
-export default Categories
+)(Categories)
