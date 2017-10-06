@@ -1,1 +1,3 @@
-export default { }
+import categories from './categories'
+
+export { categories }

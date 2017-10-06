@@ -3,7 +3,7 @@ import { routerReducer as routing } from 'react-router-redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import reducers from './reducers'
+import * as reducers from './reducers'
 
 const store = createStore(
   combineReducers({
