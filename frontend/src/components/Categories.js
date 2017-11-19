@@ -13,7 +13,7 @@ class Categories extends PureComponent {
 
   render() {
     return (
-      <List className='list md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <Subheader primaryText='Categories' />
         {this.props.categories.map(category => (
           <Link key={category.name} to={`/categories/${category.name}`} style={{ textDecoration: 'none' }}>

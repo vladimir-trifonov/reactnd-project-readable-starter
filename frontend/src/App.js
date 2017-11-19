@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Redirect, Route, Link } from 'react-router-dom'
 import './App.css'
 
-import { HomeView, CategoriesView } from './views'
+import { HomeView, CategoriesView, PostsView } from './views'
 
 class App extends Component {
   render () {
@@ -16,6 +16,7 @@ class App extends Component {
         <Switch>
           <Route path='/' exact component={HomeView} />
           <Route path='/categories/:category' exact component={CategoriesView} />
+          <Route path='/posts/:postId' exact component={PostsView} />
           <Redirect to='/' />
         </Switch>
       </div>
