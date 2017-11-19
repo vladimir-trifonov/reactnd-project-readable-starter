@@ -22,7 +22,7 @@ class Comments extends PureComponent {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         {this.props.comments.map(comment => (
-          <ListItem key={comment.id} primaryText={comment.title} />
+          <ListItem key={comment.id} primaryText={comment.body} />
         ))}
       </List>
     )

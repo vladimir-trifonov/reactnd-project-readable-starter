@@ -9,7 +9,7 @@ const PostsView = ({ match: { params } }) => {
         <Post postId={params.postId} />
         <Comments postId={params.postId} />
       </div>
-      <AddComment />
+      <AddComment postId={params.postId} />
     </div>
   )
 }

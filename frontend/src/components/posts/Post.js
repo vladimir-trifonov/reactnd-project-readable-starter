@@ -20,7 +20,7 @@ class Post extends PureComponent {
         <CardText>
           <h6>Published on: {this.props.post.timestamp}, Vote: {this.props.post.voteScore}</h6>
           <p>
-            {this.props.post.author}
+            {this.props.post.body}
           </p>
         </CardText>
       </Card>
