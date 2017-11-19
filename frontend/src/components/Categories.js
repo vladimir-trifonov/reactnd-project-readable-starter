@@ -1,21 +1,24 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { List, ListItem } from 'react-md/lib/Lists'
 import Subheader from 'react-md/lib/Subheaders'
 import { loadCategories } from '../actions/categories'
 
-class Categories extends Component {
+class Categories extends PureComponent {
   componentDidMount() {
     this.props.loadCategories()
   }
 
   render() {
     return (
-      <List className='md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='list md-cell md-cell--6 md-paper md-paper--1'>
         <Subheader primaryText='Categories' />
         {this.props.categories.map(category => (
-          <ListItem key={category.name} primaryText={category.name} />
+          <Link key={category.name} to={`/categories/${category.name}`} style={{ textDecoration: 'none' }}>
+            <ListItem primaryText={category.name} />
+          </Link>
         ))}
       </List>
     )

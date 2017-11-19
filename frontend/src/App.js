@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
-import Categories from './components/Categories'
-import Posts from './components/Posts'
+import { Switch, Redirect, Route, Link } from 'react-router-dom'
 import './App.css'
 
+import { HomeView, CategoriesView } from './views'
+
 class App extends Component {
-  render() {
+  render () {
     return (
       <div className='App'>
         <header className='App-header'>
-          <h1 className='App-title'>Blog</h1>
+          <h1 className='App-title'>
+            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>Blog</Link>
+          </h1>
         </header>
-        <div className='md-grid md-cell--6'>
-          <Categories />
-          <Posts />
-        </div>
+        <Switch>
+          <Route path='/' exact component={HomeView} />
+          <Route path='/categories/:category' exact component={CategoriesView} />
+          <Redirect to='/' />
+        </Switch>
       </div>
     )
   }

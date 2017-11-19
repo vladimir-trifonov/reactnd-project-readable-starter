@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { List, ListItem } from 'react-md/lib/Lists'
-import { loadPosts, orderPostsBy } from '../actions/posts'
+import { loadPosts, orderPostsBy } from '../../actions/posts'
 import SelectField from 'react-md/lib/SelectFields'
 import sortBy from 'sort-by'
 
@@ -18,15 +18,18 @@ const getOrderedPosts = (posts, orderBy) => {
   }
 }
 
-class Posts extends Component {
+class Posts extends PureComponent {
   constructor() {
     super()
-
     this.changePostsOrder = this.changePostsOrder.bind(this)
   }
 
   componentDidMount() {
-    this.props.loadPostsActionCreator()
+    this.props.loadPostsActionCreator(this.props.category)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    (this.props.category === nextProps.category) || this.props.loadPostsActionCreator(nextProps.category)
   }
 
   changePostsOrder(value) {
@@ -35,7 +38,7 @@ class Posts extends Component {
 
   render() {
     return (
-      <List className='md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='list md-cell md-cell--6 md-paper md-paper--1'>
         <SelectField
           id='posts-order'
           label='Posts by'
@@ -53,7 +56,11 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  category: PropTypes.string,
+  orderPostsBy: PropTypes.string,
+  loadPostsActionCreator: PropTypes.func.isRequired,
+  orderPostsByActionCreator: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
@@ -65,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadPostsActionCreator: () => loadPosts(dispatch),
+    loadPostsActionCreator: (category) => loadPosts(dispatch, category),
     orderPostsByActionCreator: (orderBy) => orderPostsBy(dispatch, orderBy)
   }
 }

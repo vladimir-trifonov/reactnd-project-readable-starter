@@ -16,8 +16,8 @@ export function orderPostsBy(dispatch, orderPostsBy) {
   return dispatch(orderPostsByAction(orderPostsBy))
 }
 
-export function loadPosts(dispatch) {
-  return fetch('http://localhost:3001/posts', {
+export function loadPosts(dispatch, category) {
+  return fetch(`http://localhost:3001/${category ? `${category}/` : ''}posts`, {
     headers: {
       'Authorization': 'readable-app'
     }

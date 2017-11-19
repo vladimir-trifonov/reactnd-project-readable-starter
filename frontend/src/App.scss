@@ -2,6 +2,13 @@
 
 @include react-md-everything;
 
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
 .App-header {
   background-color: #222;
   height: 80px;
@@ -17,4 +24,8 @@
 
 .App-intro {
   font-size: large;
+}
+
+.list {
+  flex: auto
 }
