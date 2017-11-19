@@ -32,6 +32,7 @@ export function addComment(dispatch, comment) {
       'content-type': 'application/json'
     }
   })
-    .then(comments => dispatch(addCommentAction(comment)))
+    .then(response => response.json())
+    .then(result => dispatch(addCommentAction(result)))
     .catch(error => console.error(error))
 }

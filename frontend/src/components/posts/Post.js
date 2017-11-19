@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { loadPost } from '../../actions/post'
+import { loadPost } from '../../actions/posts'
 import { Card, CardTitle, CardText } from 'react-md'
 
 class Post extends PureComponent {

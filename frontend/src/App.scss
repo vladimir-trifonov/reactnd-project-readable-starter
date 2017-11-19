@@ -25,3 +25,7 @@ body {
 .App-intro {
   font-size: large;
 }
+
+.selected div[role=button] {
+  background: rgba(0, 0, 0, 0.12);
+}

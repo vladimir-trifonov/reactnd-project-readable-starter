@@ -25,10 +25,10 @@ class AddComment extends PureComponent {
   }
 
   addComment(cb) {
-    return (value) => {
+    return () => {
       this.props.addCommentActionCreator({
         id: uuid.v4(),
-        author: this.state.author,
+        author: this.state.author || 'Anonymous',
         body: this.state.comment,
         parentId: this.props.postId,
         timestamp: new Date().getTime()

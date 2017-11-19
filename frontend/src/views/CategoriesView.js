@@ -9,7 +9,7 @@ const CategoriesView = ({ match: { params } }) => {
         <Categories />
         <Posts category={params.category} />
       </div>
-      <AddPost />
+      <AddPost category={params.category} />
     </div>
   )
 }

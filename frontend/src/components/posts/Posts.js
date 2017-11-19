@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { List, ListItem } from 'react-md/lib/Lists'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { loadPosts, orderPostsBy } from '../../actions/posts'
 import SelectField from 'react-md/lib/SelectFields'
 import sortBy from 'sort-by'
@@ -49,9 +49,9 @@ class Posts extends PureComponent {
           onChange={this.changePostsOrder}
         />
         {this.props.posts.map(post => (
-          <Link key={post.id} to={`/posts/${post.id}`} style={{ textDecoration: 'none' }}>
+          <NavLink key={post.id} to={`/posts/${post.id}`} style={{ textDecoration: 'none' }}>
             <ListItem primaryText={post.title} />
-          </Link>
+          </NavLink>
         ))}
       </List>
     )
