@@ -9,6 +9,7 @@
     "npm-run-all": "^4.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-app-env": "1.2.0",
     "react-dom": "^16.0.0",
     "react-md": "^1.1.7",
     "react-moment": "0.6.8",
@@ -23,7 +24,7 @@
   "scripts": {
     "build-css": "node-sass src/ -o src/",
     "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
+    "start-js": "react-app-env start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",

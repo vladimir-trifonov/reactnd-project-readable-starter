@@ -1,4 +1,6 @@
 /* global fetch */
+const apiHost = process.env.REACT_APP_API_HOST
+
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
 
 const loadCategoriesAction = categories => ({
@@ -7,7 +9,7 @@ const loadCategoriesAction = categories => ({
 })
 
 export function loadCategories(dispatch) {
-  return fetch('http://localhost:3001/categories', {
+  return fetch(`${apiHost}/categories`, {
     headers: {
       'Authorization': 'readable-app'
     }

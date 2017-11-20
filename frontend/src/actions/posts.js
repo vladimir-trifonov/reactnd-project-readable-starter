@@ -1,4 +1,6 @@
 /* global fetch */
+const apiHost = process.env.REACT_APP_API_HOST
+
 export const LOAD_POSTS = 'LOAD_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const ORDER_POSTS_BY = 'ORDER_POSTS_BY'
@@ -29,7 +31,7 @@ export function orderPostsBy(dispatch, orderPostsBy) {
 }
 
 export function loadPosts(dispatch, category) {
-  return fetch(`http://localhost:3001/${category ? `${category}/` : ''}posts`, {
+  return fetch(`${apiHost}/${category ? `${category}/` : ''}posts`, {
     headers: {
       'Authorization': 'readable-app'
     }
@@ -40,7 +42,7 @@ export function loadPosts(dispatch, category) {
 }
 
 export function addPost(dispatch, currentCategory, post) {
-  return fetch(`http://localhost:3001/posts`, {
+  return fetch(`${apiHost}/posts`, {
     method: 'POST',
     body: JSON.stringify(post),
     headers: {
@@ -58,7 +60,7 @@ export function addPost(dispatch, currentCategory, post) {
 }
 
 export function loadPost(dispatch, postId) {
-  return fetch(`http://localhost:3001/posts/${postId}`, {
+  return fetch(`${apiHost}/posts/${postId}`, {
     headers: {
       'Authorization': 'readable-app'
     }
@@ -67,4 +69,3 @@ export function loadPost(dispatch, postId) {
     .then(post => dispatch(loadPostAction(post)))
     .catch(error => console.error(error))
 }
-

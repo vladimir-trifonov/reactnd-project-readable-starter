@@ -1,4 +1,6 @@
 /* global fetch */
+const apiHost = process.env.REACT_APP_API_HOST
+
 export const LOAD_COMMENTS = 'LOAD_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
@@ -36,7 +38,7 @@ const stopEditCommentAction = () => ({
 })
 
 export function loadComments(dispatch, postId) {
-  return fetch(`http://localhost:3001/posts/${postId}/comments`, {
+  return fetch(`${apiHost}/posts/${postId}/comments`, {
     headers: {
       'Authorization': 'readable-app'
     }
@@ -47,7 +49,7 @@ export function loadComments(dispatch, postId) {
 }
 
 export function addComment(dispatch, comment) {
-  return fetch(`http://localhost:3001/comments`, {
+  return fetch(`${apiHost}/comments`, {
     method: 'POST',
     body: JSON.stringify(comment),
     headers: {
@@ -61,7 +63,7 @@ export function addComment(dispatch, comment) {
 }
 
 export function deleteComment(dispatch, commentId) {
-  return fetch(`http://localhost:3001/comments/${commentId}`, {
+  return fetch(`${apiHost}/comments/${commentId}`, {
     method: 'DELETE',
     headers: {
       'Authorization': 'readable-app',
@@ -73,7 +75,7 @@ export function deleteComment(dispatch, commentId) {
 }
 
 export function updateComment(dispatch, comment) {
-  return fetch(`http://localhost:3001/comments/${comment.id}`, {
+  return fetch(`${apiHost}/comments/${comment.id}`, {
     method: 'PUT',
     body: JSON.stringify(comment),
     headers: {
