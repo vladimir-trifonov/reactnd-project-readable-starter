@@ -1,11 +1,15 @@
-import { LOAD_POST, ADD_POST, LOAD_POSTS, ORDER_POSTS_BY } from '../actions/posts'
+import { LOAD_POST, ADD_POST, LOAD_POSTS, ORDER_POSTS_BY, DELETE_POST, START_EDIT_POST, UPDATE_POST, STOP_EDIT_POST } from '../actions/posts'
 
 const posts = (state = [], action) => {
   switch (action.type) {
     case ADD_POST:
       return [...state, action.post]
+    case DELETE_POST:
+      return state.filter(c => c.id !== action.postId)
     case LOAD_POSTS:
       return action.posts
+    case UPDATE_POST:
+      return [...state.filter(c => c.id !== action.post.id), action.post]
     default:
       return state
   }
@@ -29,4 +33,15 @@ const post = (state = {}, action) => {
   }
 }
 
-export {post, posts, orderPostsBy}
+const editedPostId = (state = '', action) => {
+  switch (action.type) {
+    case START_EDIT_POST:
+      return action.postId
+    case STOP_EDIT_POST:
+      return ''
+    default:
+      return state
+  }
+}
+
+export { post, posts, orderPostsBy, editedPostId }

@@ -49,7 +49,7 @@ class Comments extends PureComponent {
           </ListItem>
         ))}
 
-        {this.props.editCommentId && <EditComment commentId={this.props.editCommentId} />}
+        {this.props.editedCommentId && <EditComment commentId={this.props.editedCommentId} />}
       </List>
     )
   }
@@ -59,13 +59,14 @@ Comments.propTypes = {
   comments: PropTypes.array.isRequired,
   postId: PropTypes.string,
   loadCommentsActionCreator: PropTypes.func.isRequired,
-  startEditCommentActionCreator: PropTypes.func.isRequired
+  startEditCommentActionCreator: PropTypes.func.isRequired,
+  deleteCommentActionCreator: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
   return {
     comments: getOrderedComments(state.comments),
-    editCommentId: state.editCommentId
+    editedCommentId: state.editedCommentId
   }
 }
 

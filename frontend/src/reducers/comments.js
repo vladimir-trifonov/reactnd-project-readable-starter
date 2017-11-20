@@ -15,7 +15,7 @@ const comments = (state = [], action) => {
   }
 }
 
-const editCommentId = (state = '', action) => {
+const editedCommentId = (state = '', action) => {
   switch (action.type) {
     case START_EDIT_COMMENT:
       return action.commentId
@@ -26,4 +26,4 @@ const editCommentId = (state = '', action) => {
   }
 }
 
-export { comments, editCommentId }
+export { comments, editedCommentId }

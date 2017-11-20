@@ -31,7 +31,7 @@ class AddPost extends PureComponent {
         title: this.state.title,
         author: this.state.author || 'Anonymous',
         body: this.state.body,
-        category: this.state.category,
+        category: this.state.category || this.props.category,
         timestamp: new Date().getTime()
       })
         .then(() => {
@@ -84,6 +84,7 @@ class AddPost extends PureComponent {
             itemLabel='name'
             itemValue='path'
             onChange={this.handleTextFieldChange('category')}
+            value={this.props.category ? this.props.category : ''}
           />
           <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='title' label='Title' className={classes} value={this.state.title} onChange={this.handleTextFieldChange('title')} />

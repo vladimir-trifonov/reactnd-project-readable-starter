@@ -69,7 +69,7 @@ class EditComment extends PureComponent {
           containFocus='true'
           contentClassName='md-grid'
         >
-          <TextField disabled id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.updated ? this.state.updated.author : this.props.comment.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.updated ? this.state.updated.author : this.props.comment.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.updated ? this.state.updated.body : this.props.comment.body} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
       </div>
