@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Switch, Redirect, Route, Link } from 'react-router-dom'
+
 import './App.css'
 
 import { HomeView, CategoriesView, PostsView } from './views'

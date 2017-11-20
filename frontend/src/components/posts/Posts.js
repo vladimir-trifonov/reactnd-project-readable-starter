@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { List, ListItem } from 'react-md/lib/Lists'
 import { NavLink } from 'react-router-dom'
-import { loadPosts, orderPostsBy, deletePost, startEditPost } from '../../actions/posts'
 import { Button } from 'react-md'
 import SelectField from 'react-md/lib/SelectFields'
 import sortBy from 'sort-by'
+
+import { loadPosts, orderPostsBy, deletePost, startEditPost } from '../../actions/posts'
 import EditPost from './EditPost'
 
 const ORDER_BY = ['Vote', 'Date']
@@ -22,7 +23,7 @@ const getOrderedPosts = (posts, orderBy) => {
 }
 
 class Posts extends PureComponent {
-  constructor() {
+  constructor () {
     super()
 
     this.startEditPost = this.startEditPost.bind(this)
@@ -30,33 +31,33 @@ class Posts extends PureComponent {
     this.changePostsOrder = this.changePostsOrder.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadPostsActionCreator(this.props.category)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     (this.props.category === nextProps.category) || this.props.loadPostsActionCreator(nextProps.category)
   }
 
-  changePostsOrder(value) {
+  changePostsOrder (value) {
     this.props.orderPostsByActionCreator(value)
   }
 
-  startEditPost(postId) {
+  startEditPost (postId) {
     return (e) => {
       e.preventDefault()
       this.props.startEditPostActionCreator(postId)
     }
   }
 
-  deletePost(postId) {
+  deletePost (postId) {
     return (e) => {
       e.preventDefault()
       this.props.deletePostActionCreator(postId)
     }
   }
 
-  render() {
+  render () {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <SelectField
@@ -75,7 +76,7 @@ class Posts extends PureComponent {
             </ListItem>
           </NavLink>
         ))}
-        
+
         {this.props.editedPostId && <EditPost postId={this.props.editedPostId} category={this.props.category} />}
       </List>
     )
@@ -89,7 +90,8 @@ Posts.propTypes = {
   loadPostsActionCreator: PropTypes.func.isRequired,
   orderPostsByActionCreator: PropTypes.func.isRequired,
   startEditPostActionCreator: PropTypes.func.isRequired,
-  deletePostActionCreator: PropTypes.func.isRequired
+  deletePostActionCreator: PropTypes.func.isRequired,
+  editedPostId: PropTypes.string
 }
 
 const mapStateToProps = state => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Categories, AddPost, Posts }  from '../components'
+
+import { Categories, AddPost, Posts } from '../components'
 
 const CategoriesView = ({ match: { params } }) => {
   return (
@@ -14,6 +15,8 @@ const CategoriesView = ({ match: { params } }) => {
   )
 }
 
-CategoriesView.propTypes = {}
+CategoriesView.propTypes = {
+  match: PropTypes.object.isRequired
+}
 
 export default CategoriesView

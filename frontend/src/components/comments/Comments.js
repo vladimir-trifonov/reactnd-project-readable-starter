@@ -2,44 +2,45 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { List, ListItem } from 'react-md/lib/Lists'
-import { deleteComment, loadComments, startEditComment } from '../../actions/comments'
-import { Button } from 'react-md'
-import EditComment from './EditComment'
 import sortBy from 'sort-by'
+import { Button } from 'react-md'
+
+import { deleteComment, loadComments, startEditComment } from '../../actions/comments'
+import EditComment from './EditComment'
 
 const getOrderedComments = (comments) => {
   return comments.sort(sortBy('voteScore'))
 }
 
 class Comments extends PureComponent {
-  constructor() {
+  constructor () {
     super()
 
     this.startEditComment = this.startEditComment.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadCommentsActionCreator(this.props.postId)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     (this.props.postId === nextProps.postId) || this.props.loadCommentsActionCreator(nextProps.postId)
   }
 
-  startEditComment(commentId) {
+  startEditComment (commentId) {
     return () => {
       this.props.startEditCommentActionCreator(commentId)
     }
   }
 
-  deleteComment(commentId) {
+  deleteComment (commentId) {
     return () => {
       this.props.deleteCommentActionCreator(commentId)
     }
   }
 
-  render() {
+  render () {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         {this.props.comments.map(comment => (
@@ -60,7 +61,8 @@ Comments.propTypes = {
   postId: PropTypes.string,
   loadCommentsActionCreator: PropTypes.func.isRequired,
   startEditCommentActionCreator: PropTypes.func.isRequired,
-  deleteCommentActionCreator: PropTypes.func.isRequired
+  deleteCommentActionCreator: PropTypes.func.isRequired,
+  editedCommentId: PropTypes.string
 }
 
 const mapStateToProps = state => {

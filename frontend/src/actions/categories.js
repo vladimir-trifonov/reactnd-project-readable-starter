@@ -8,7 +8,7 @@ const loadCategoriesAction = categories => ({
   categories
 })
 
-export function loadCategories(dispatch) {
+export function loadCategories (dispatch) {
   return fetch(`${apiHost}/categories`, {
     headers: {
       'Authorization': 'readable-app'

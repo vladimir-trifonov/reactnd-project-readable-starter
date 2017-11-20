@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button, DialogContainer, TextField, SelectField } from 'react-md'
-import { addPost } from '../../actions/posts'
 import uuid from 'js-uuid'
 
+import { addPost } from '../../actions/posts'
+
 class AddPost extends PureComponent {
-  constructor() {
+  constructor () {
     super()
 
     this.state = { visible: false }
@@ -16,15 +17,15 @@ class AddPost extends PureComponent {
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
   }
 
-  show() {
+  show () {
     this.setState({ visible: true })
   }
 
-  hide() {
+  hide () {
     this.setState({ visible: false })
   }
 
-  addPost(cb) {
+  addPost (cb) {
     return () => {
       this.props.addPostActionCreator(this.props.category, {
         id: uuid.v4(),
@@ -44,7 +45,7 @@ class AddPost extends PureComponent {
     }
   }
 
-  handleTextFieldChange(type) {
+  handleTextFieldChange (type) {
     return (text) => {
       this.setState({
         [type]: text
@@ -52,12 +53,12 @@ class AddPost extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const { visible } = this.state
     const classes = 'md-cell md-cell--12'
 
     const actions = []
-    actions.push({ secondary: true, children: 'Cancel', onClick: this.hide })
+    actions.push({ secondary: false, children: 'Cancel', onClick: this.hide })
     actions.push(<Button flat primary onClick={this.addPost(this.hide)}>Confirm</Button>)
 
     return (
@@ -95,7 +96,11 @@ class AddPost extends PureComponent {
   }
 }
 
-AddPost.propTypes = {}
+AddPost.propTypes = {
+  category: PropTypes.string,
+  categories: PropTypes.array.isRequired,
+  addPostActionCreator: PropTypes.func.isRequired
+}
 
 const mapStateToProps = state => {
   return {

@@ -6,15 +6,15 @@ import { Card, CardTitle, CardText } from 'react-md'
 import Moment from 'react-moment'
 
 class Post extends PureComponent {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadPostActionCreator(this.props.postId)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     (this.props.postId === nextProps.postId) || this.post.loadPostActionCreator(nextProps.postId)
   }
 
-  render() {
+  render () {
     return (
       <Card className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <CardTitle title={this.props.post.title} subtitle={`Author: ${this.props.post.author}`} />
@@ -36,7 +36,9 @@ Post.propTypes = {
     voteScore: PropTypes.string,
     body: PropTypes.string,
     author: PropTypes.string
-  })
+  }),
+  postId: PropTypes.string.isRequired,
+  loadPostActionCreator: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {

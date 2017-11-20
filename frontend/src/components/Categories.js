@@ -4,14 +4,15 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { List, ListItem } from 'react-md/lib/Lists'
 import Subheader from 'react-md/lib/Subheaders'
+
 import { loadCategories } from '../actions/categories'
 
 class Categories extends Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadCategories()
   }
 
-  render() {
+  render () {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <Subheader primaryText='Categories' />
@@ -26,7 +27,8 @@ class Categories extends Component {
 }
 
 Categories.propTypes = {
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  loadCategories: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => {

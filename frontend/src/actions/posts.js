@@ -30,10 +30,6 @@ export const orderPostsByAction = orderPostsBy => ({
   orderPostsBy
 })
 
-export function orderPostsBy(dispatch, orderPostsBy) {
-  return dispatch(orderPostsByAction(orderPostsBy))
-}
-
 const deletePostAction = postId => ({
   type: DELETE_POST,
   postId
@@ -53,7 +49,11 @@ const stopEditPostAction = () => ({
   type: STOP_EDIT_POST
 })
 
-export function loadPosts(dispatch, category) {
+export function orderPostsBy (dispatch, orderPostsBy) {
+  return dispatch(orderPostsByAction(orderPostsBy))
+}
+
+export function loadPosts (dispatch, category) {
   return fetch(`${apiHost}/${category ? `${category}/` : ''}posts`, {
     headers: {
       'Authorization': 'readable-app'
@@ -64,7 +64,7 @@ export function loadPosts(dispatch, category) {
     .catch(error => console.error(error))
 }
 
-export function addPost(dispatch, currentCategory, post) {
+export function addPost (dispatch, currentCategory, post) {
   return fetch(`${apiHost}/posts`, {
     method: 'POST',
     body: JSON.stringify(post),
@@ -82,7 +82,7 @@ export function addPost(dispatch, currentCategory, post) {
     .catch(error => console.error(error))
 }
 
-export function loadPost(dispatch, postId) {
+export function loadPost (dispatch, postId) {
   return fetch(`${apiHost}/posts/${postId}`, {
     headers: {
       'Authorization': 'readable-app'
@@ -93,7 +93,7 @@ export function loadPost(dispatch, postId) {
     .catch(error => console.error(error))
 }
 
-export function deletePost(dispatch, postId) {
+export function deletePost (dispatch, postId) {
   return fetch(`${apiHost}/posts/${postId}`, {
     method: 'DELETE',
     headers: {
@@ -105,7 +105,7 @@ export function deletePost(dispatch, postId) {
     .catch(error => console.error(error))
 }
 
-export function updatePost(dispatch, currentCategory, post) {
+export function updatePost (dispatch, currentCategory, post) {
   return fetch(`${apiHost}/posts/${post.id}`, {
     method: 'PUT',
     body: JSON.stringify(post),
@@ -125,11 +125,10 @@ export function updatePost(dispatch, currentCategory, post) {
     .catch(error => console.error(error))
 }
 
-export function startEditPost(dispatch, postId) {
+export function startEditPost (dispatch, postId) {
   dispatch(startEditPostAction(postId))
 }
 
-export function stopEditPost(dispatch) {
+export function stopEditPost (dispatch) {
   dispatch(stopEditPostAction())
 }
-

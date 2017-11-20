@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button, DialogContainer, TextField } from 'react-md'
-import { addComment } from '../../actions/comments'
 import uuid from 'js-uuid'
 
+import { addComment } from '../../actions/comments'
+
 class AddComment extends PureComponent {
-  constructor() {
+  constructor () {
     super()
 
     this.state = { visible: false }
@@ -16,15 +17,15 @@ class AddComment extends PureComponent {
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
   }
 
-  show() {
+  show () {
     this.setState({ visible: true })
   }
 
-  hide() {
+  hide () {
     this.setState({ visible: false })
   }
 
-  addComment(cb) {
+  addComment (cb) {
     return () => {
       this.props.addCommentActionCreator({
         id: uuid.v4(),
@@ -42,7 +43,7 @@ class AddComment extends PureComponent {
     }
   }
 
-  handleTextFieldChange(type) {
+  handleTextFieldChange (type) {
     return (text) => {
       this.setState({
         [type]: text
@@ -50,12 +51,12 @@ class AddComment extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const { visible } = this.state
     const classes = 'md-cell md-cell--12'
 
     const actions = []
-    actions.push({ secondary: true, children: 'Cancel', onClick: this.hide })
+    actions.push({ secondary: false, children: 'Cancel', onClick: this.hide })
     actions.push(<Button flat primary onClick={this.addComment(this.hide)}>Confirm</Button>)
 
     return (
@@ -80,10 +81,9 @@ class AddComment extends PureComponent {
   }
 }
 
-AddComment.propTypes = {}
-
-const mapStateToProps = state => {
-  return {}
+AddComment.propTypes = {
+  postId: PropTypes.string.isRequired,
+  addCommentActionCreator: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -93,6 +93,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(AddComment)

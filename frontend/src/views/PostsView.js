@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AddComment, Post, Comments }  from '../components'
+
+import { AddComment, Post, Comments } from '../components'
 
 const PostsView = ({ match: { params } }) => {
   return (
@@ -14,6 +15,8 @@ const PostsView = ({ match: { params } }) => {
   )
 }
 
-PostsView.propTypes = {}
+PostsView.propTypes = {
+  match: PropTypes.object.isRequired
+}
 
 export default PostsView

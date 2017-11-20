@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Button, DialogContainer, TextField } from 'react-md'
+
 import { updateComment, stopEditComment } from '../../actions/comments'
 
 class EditComment extends PureComponent {
-  constructor() {
+  constructor () {
     super()
 
     this.state = {
@@ -16,16 +17,16 @@ class EditComment extends PureComponent {
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
   }
 
-  hide() {
+  hide () {
     this.props.stopEditCommentActionCreator()
   }
 
-  updateComment(cb) {
+  updateComment (cb) {
     this.props.updateCommentActionCreator(Object.assign({}, this.props.comment, this.state.updated))
       .then(this.props.stopEditCommentActionCreator)
   }
 
-  handleTextFieldChange(type) {
+  handleTextFieldChange (type) {
     return (text) => {
       let state
       if (this.state.updated) {
@@ -47,12 +48,12 @@ class EditComment extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const { visible } = this.state
     const classes = 'md-cell md-cell--12'
 
     const actions = []
-    actions.push({ secondary: true, children: 'Cancel', onClick: this.hide })
+    actions.push({ secondary: false, children: 'Cancel', onClick: this.hide })
     actions.push(<Button flat primary onClick={this.updateComment}>Confirm</Button>)
 
     return (
@@ -77,7 +78,11 @@ class EditComment extends PureComponent {
   }
 }
 
-EditComment.propTypes = {}
+EditComment.propTypes = {
+  comment: PropTypes.object.isRequired,
+  stopEditCommentActionCreator: PropTypes.func.isRequired,
+  updateCommentActionCreator: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
