@@ -13,7 +13,7 @@ class AddPost extends PureComponent {
     this.show = this.show.bind(this)
     this.hide = this.hide.bind(this)
     this.addPost = this.addPost.bind(this)
-    this._handleTextFieldChange = this._handleTextFieldChange.bind(this)
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
   }
 
   show() {
@@ -30,21 +30,21 @@ class AddPost extends PureComponent {
         id: uuid.v4(),
         title: this.state.title,
         author: this.state.author || 'Anonymous',
-        body: this.state.post,
+        body: this.state.body,
         category: this.state.category,
         timestamp: new Date().getTime()
       })
         .then(() => {
           this.setState({
             title: '',
-            post: ''
+            body: ''
           })
         })
         .then(cb)
     }
   }
 
-  _handleTextFieldChange(type) {
+  handleTextFieldChange(type) {
     return (text) => {
       this.setState({
         [type]: text
@@ -54,6 +54,7 @@ class AddPost extends PureComponent {
 
   render() {
     const { visible } = this.state
+    const classes = 'md-cell md-cell--12'
 
     const actions = []
     actions.push({ secondary: true, children: 'Cancel', onClick: this.hide })
@@ -76,17 +77,17 @@ class AddPost extends PureComponent {
           <SelectField
             id='select-category'
             placeholder='Category'
-            className='md-cell md-cell--12'
+            className={classes}
             menuItems={this.props.categories}
             position={SelectField.Positions.BELOW}
             simplifiedMenu='true'
             itemLabel='name'
             itemValue='path'
-            onChange={this._handleTextFieldChange('category')}
+            onChange={this.handleTextFieldChange('category')}
           />
-          <TextField id='author' label='Author' className='md-cell md-cell--12' defaultValue='Anonymous' value={this.state.author} onChange={this._handleTextFieldChange('author')} />
-          <TextField id='title' label='Title' className='md-cell md-cell--12' value={this.state.title} onChange={this._handleTextFieldChange('title')} />
-          <TextField id='post' label='Comment' rows={2} className='md-cell md-cell--12' value={this.state.post} onChange={this._handleTextFieldChange('post')} />
+          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='title' label='Title' className={classes} value={this.state.title} onChange={this.handleTextFieldChange('title')} />
+          <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.post} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
       </div>
     )

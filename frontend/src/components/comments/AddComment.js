@@ -13,7 +13,7 @@ class AddComment extends PureComponent {
     this.show = this.show.bind(this)
     this.hide = this.hide.bind(this)
     this.addComment = this.addComment.bind(this)
-    this._handleTextFieldChange = this._handleTextFieldChange.bind(this)
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this)
   }
 
   show() {
@@ -29,20 +29,20 @@ class AddComment extends PureComponent {
       this.props.addCommentActionCreator({
         id: uuid.v4(),
         author: this.state.author || 'Anonymous',
-        body: this.state.comment,
+        body: this.state.body,
         parentId: this.props.postId,
         timestamp: new Date().getTime()
       })
         .then(() => {
           this.setState({
-            comment: ''
+            body: ''
           })
         })
         .then(cb)
     }
   }
 
-  _handleTextFieldChange(type) {
+  handleTextFieldChange(type) {
     return (text) => {
       this.setState({
         [type]: text
@@ -52,6 +52,7 @@ class AddComment extends PureComponent {
 
   render() {
     const { visible } = this.state
+    const classes = 'md-cell md-cell--12'
 
     const actions = []
     actions.push({ secondary: true, children: 'Cancel', onClick: this.hide })
@@ -66,13 +67,13 @@ class AddComment extends PureComponent {
           visible={visible}
           actions={actions}
           onHide={this.hide}
-          initialFocus='comment'
+          initialFocus='body'
           focusOnMount='true'
           containFocus='true'
           contentClassName='md-grid'
         >
-          <TextField id='author' label='Author' className='md-cell md-cell--12' defaultValue='Anonymous' value={this.state.author} onChange={this._handleTextFieldChange('author')} />
-          <TextField id='comment' label='Comment' rows={2} className='md-cell md-cell--12' value={this.state.comment} onChange={this._handleTextFieldChange('comment')} />
+          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.body} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
       </div>
     )
