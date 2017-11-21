@@ -9,6 +9,7 @@ const posts = (state = [], action) => {
     case LOAD_POSTS:
       return action.posts
     case UPDATE_POST:
+      debugger
       return [...state.filter(c => c.id !== action.post.id), action.post]
     default:
       return state

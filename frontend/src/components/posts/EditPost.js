@@ -12,6 +12,7 @@ class EditPost extends PureComponent {
     this.state = {
       visible: true
     }
+
     this.hide = this.hide.bind(this)
     this.updatePost = this.updatePost.bind(this)
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this)

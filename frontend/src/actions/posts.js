@@ -1,5 +1,5 @@
 /* global fetch */
-import { LOAD_POST, ORDER_POSTS_BY, LOAD_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, START_EDIT_POST, STOP_EDIT_POST } from './types'
+import { VOTE_UP_POST, VOTE_DOWN_POST, LOAD_POST, ORDER_POSTS_BY, LOAD_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, START_EDIT_POST, STOP_EDIT_POST } from './types'
 
 const apiHost = process.env.REACT_APP_API_HOST
 
@@ -45,6 +45,16 @@ const stopEditPostAction = () => ({
 export function orderPostsBy (dispatch, orderPostsBy) {
   return dispatch(orderPostsByAction(orderPostsBy))
 }
+
+const voteUpPostAction = postId => ({
+  type: VOTE_UP_POST,
+  postId
+})
+
+const voteDownPostAction = postId => ({
+  type: VOTE_DOWN_POST,
+  postId
+})
 
 export function loadPosts (dispatch, category) {
   return fetch(`${apiHost}/${category ? `${category}/` : ''}posts`, {
@@ -130,4 +140,32 @@ export function startEditPost (dispatch, postId) {
 
 export function stopEditPost (dispatch) {
   dispatch(stopEditPostAction())
+}
+
+export function voteUpPost (dispatch, postId) {
+  return fetch(`${apiHost}/posts/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'upVote' }),
+    headers: {
+      'Authorization': 'readable-app',
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => dispatch(loadPostAction(result)))
+    .catch(error => console.error(error))
+}
+
+export function voteDownPost (dispatch, postId) {
+  return fetch(`${apiHost}/posts/${postId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'downVote' }),
+    headers: {
+      'Authorization': 'readable-app',
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => dispatch(loadPostAction(result)))
+    .catch(error => console.error(error))
 }

@@ -1,13 +1,19 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Card, CardTitle, CardText } from 'react-md'
+import { Card, CardTitle, CardText, Button } from 'react-md'
 import Moment from 'react-moment'
 import { withRouter } from 'react-router-dom'
 
-import { loadPost } from '../../actions/posts'
+import { loadPost, voteDownPost, voteUpPost } from '../../actions/posts'
 
 class Post extends PureComponent {
+  constructor () {
+    super()
+
+    this.voteUp = this.voteUp.bind(this)
+    this.voteDown = this.voteDown.bind(this)
+  }
   componentDidMount () {
     this.props.loadPostActionCreator(this.props.postId, this.props.history)
   }
@@ -16,12 +22,21 @@ class Post extends PureComponent {
     (this.props.postId === nextProps.postId) || this.post.loadPostActionCreator(nextProps.postId, this.props.history)
   }
 
+  voteDown () {
+    this.props.voteDownPostActionCreator(this.props.postId)
+  }
+
+  voteUp () {
+    this.props.voteUpPostActionCreator(this.props.postId)
+  }
+
   render () {
     return (
       <Card className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <CardTitle title={this.props.post.title || ''} subtitle={`Author: ${this.props.post.author}`} />
         <CardText>
-          <h6>Published on: <Moment format='YYYY/MM/DD HH:MM'>{this.props.post.timestamp}</Moment>, Vote: {this.props.post.voteScore}</h6>
+          <Button icon iconClassName='material-icons' onClick={this.voteDown} >favorite_border</Button><span className='vote-score-text'>{this.props.post.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp}>favorite</Button>
+          <h6>Published on: <Moment format='YYYY/MM/DD HH:MM'>{this.props.post.timestamp}</Moment></h6>
           <p>
             {this.props.post.body}
           </p>
@@ -41,7 +56,9 @@ Post.propTypes = {
   }),
   history: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  loadPostActionCreator: PropTypes.func.isRequired
+  loadPostActionCreator: PropTypes.func.isRequired,
+  voteDownPostActionCreator: PropTypes.func.isRequired,
+  voteUpPostActionCreator: PropTypes.func.isRequired
 }
 
 Post.contextTypes = {
@@ -56,7 +73,9 @@ const mapStateToProps = ({post}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadPostActionCreator: (postId, history) => loadPost(dispatch, postId, () => history.push('/notfound'))
+    loadPostActionCreator: (postId, history) => loadPost(dispatch, postId, () => history.push('/notfound')),
+    voteDownPostActionCreator: (postId) => voteDownPost(dispatch, postId),
+    voteUpPostActionCreator: (postId) => voteUpPost(dispatch, postId)
   }
 }
 
