@@ -65,10 +65,10 @@ Comments.propTypes = {
   editedCommentId: PropTypes.string
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({comments, editedCommentId}) => {
   return {
-    comments: getOrderedComments(state.comments),
-    editedCommentId: state.editedCommentId
+    comments: getOrderedComments(comments),
+    editedCommentId
   }
 }
 

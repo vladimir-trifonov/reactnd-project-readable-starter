@@ -69,7 +69,7 @@ class Posts extends PureComponent {
           onChange={this.changePostsOrder}
         />
         {this.props.posts.map(post => (
-          <NavLink key={post.id} to={`/posts/${post.id}`} style={{ textDecoration: 'none' }}>
+          <NavLink key={post.id} to={`/${post.category}/${post.id}`} className='nav-link'>
             <ListItem primaryText={post.title}>
               <Button icon iconChildren='close' onClick={this.deletePost(post.id)} />
               <Button icon iconChildren='edit' onClick={this.startEditPost(post.id)} />
@@ -94,11 +94,11 @@ Posts.propTypes = {
   editedPostId: PropTypes.string
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({orderPostsBy, posts, editedPostId}) => {
   return {
-    orderPostsBy: state.orderPostsBy,
-    posts: getOrderedPosts(state.posts, state.orderPostsBy),
-    editedPostId: state.editedPostId
+    orderPostsBy,
+    editedPostId,
+    posts: getOrderedPosts(posts, orderPostsBy)
   }
 }
 

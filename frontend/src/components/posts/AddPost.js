@@ -63,16 +63,16 @@ class AddPost extends PureComponent {
 
     return (
       <div>
-        <Button onClick={this.show} style={{ position: 'fixed', bottom: '20px', right: '20px' }} floating tooltipLabel='Add post' tooltipPosition='top'>add</Button>
+        <Button onClick={this.show} className='add-btn' floating tooltipLabel='Add post' tooltipPosition='top'>add</Button>
         <DialogContainer
           id='add-post-dialog'
           title='Add post'
           visible={visible}
           actions={actions}
           onHide={this.hide}
-          initialFocus='title'
-          focusOnMount='true'
-          containFocus='true'
+          initialFocus='author'
+          focusOnMount={true}
+          containFocus={true}
           contentClassName='md-grid'
         >
           <SelectField
@@ -81,13 +81,13 @@ class AddPost extends PureComponent {
             className={classes}
             menuItems={this.props.categories}
             position={SelectField.Positions.BELOW}
-            simplifiedMenu='true'
+            simplifiedMenu={true}
             itemLabel='name'
             itemValue='path'
             onChange={this.handleTextFieldChange('category')}
             value={this.props.category ? this.props.category : ''}
           />
-          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='author' label='Author' className={classes} value={this.state.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='title' label='Title' className={classes} value={this.state.title} onChange={this.handleTextFieldChange('title')} />
           <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.post} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
@@ -102,9 +102,9 @@ AddPost.propTypes = {
   addPostActionCreator: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({categories}) => {
   return {
-    categories: state.categories
+    categories
   }
 }
 

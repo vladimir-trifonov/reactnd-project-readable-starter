@@ -17,7 +17,7 @@ class Categories extends Component {
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         <Subheader primaryText='Categories' />
         {this.props.categories.map(category => (
-          <NavLink activeClassName='selected' key={category.name} to={`/categories/${category.path}`} style={{ textDecoration: 'none' }}>
+          <NavLink activeClassName='selected' key={category.name} to={`/${category.path}`} className='nav-link'>
             <ListItem primaryText={category.name} />
           </NavLink>
         ))}
@@ -31,9 +31,9 @@ Categories.propTypes = {
   loadCategories: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({categories}) => {
   return {
-    categories: state.categories
+    categories
   }
 }
 

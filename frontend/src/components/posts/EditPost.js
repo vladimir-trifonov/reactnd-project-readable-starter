@@ -58,16 +58,15 @@ class EditPost extends PureComponent {
 
     return (
       <div>
-        <Button onClick={this.show} style={{ position: 'fixed', bottom: '20px', right: '20px' }} floating tooltipLabel='Edit post' tooltipPosition='top'>edit</Button>
         <DialogContainer
           id='edit-post-dialog'
           title='Edit post'
           visible={visible}
           actions={actions}
           onHide={this.hide}
-          initialFocus='title'
-          focusOnMount='true'
-          containFocus='true'
+          initialFocus='author'
+          focusOnMount={true}
+          containFocus={true}
           contentClassName='md-grid'
         >
           <SelectField
@@ -76,13 +75,13 @@ class EditPost extends PureComponent {
             className={classes}
             menuItems={this.props.categories}
             position={SelectField.Positions.BELOW}
-            simplifiedMenu='true'
+            simplifiedMenu={true}
             itemLabel='name'
             itemValue='path'
             onChange={this.handleTextFieldChange('category')}
             value={this.state.updated && this.state.updated.category ? this.state.updated.category : this.props.post.category}
           />
-          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.updated ? this.state.updated.author : this.props.post.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='author' label='Author' className={classes} value={this.state.updated ? this.state.updated.author : this.props.post.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='title' label='Title' className={classes} value={this.state.updated ? this.state.updated.title : this.props.post.title} onChange={this.handleTextFieldChange('title')} />
           <TextField id='body' label='Post' rows={2} className={classes} value={this.state.updated ? this.state.updated.body : this.props.post.body} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
@@ -100,10 +99,10 @@ EditPost.propTypes = {
 
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({categories, posts}, {postId}) => {
   return {
-    categories: state.categories,
-    post: Object.assign({}, state.posts.find(c => c.id === ownProps.postId))
+    categories,
+    post: Object.assign({}, posts.find(c => c.id === postId))
   }
 }
 

@@ -1,0 +1,17 @@
+export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
+
+export const LOAD_POSTS = 'LOAD_POSTS'
+export const ADD_POST = 'ADD_POST'
+export const ORDER_POSTS_BY = 'ORDER_POSTS_BY'
+export const LOAD_POST = 'LOAD_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const START_EDIT_POST = 'START_EDIT_POST'
+export const STOP_EDIT_POST = 'STOP_EDIT_POST'
+
+export const LOAD_COMMENTS = 'LOAD_COMMENTS'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const START_EDIT_COMMENT = 'START_EDIT_COMMENT'
+export const STOP_EDIT_COMMENT = 'STOP_EDIT_COMMENT'

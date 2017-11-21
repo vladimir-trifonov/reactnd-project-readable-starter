@@ -61,19 +61,19 @@ class AddComment extends PureComponent {
 
     return (
       <div>
-        <Button onClick={this.show} style={{ position: 'fixed', bottom: '20px', right: '20px' }} floating tooltipLabel='Add comment' tooltipPosition='top'>add</Button>
+        <Button onClick={this.show} className='add-btn' floating tooltipLabel='Add comment' tooltipPosition='top'>add</Button>
         <DialogContainer
           id='add-comment-dialog'
           title='Add comment'
           visible={visible}
           actions={actions}
           onHide={this.hide}
-          initialFocus='body'
-          focusOnMount='true'
-          containFocus='true'
+          initialFocus='author'
+          focusOnMount={true}
+          containFocus={true}
           contentClassName='md-grid'
         >
-          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='author' label='Author' className={classes} value={this.state.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.body} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
       </div>

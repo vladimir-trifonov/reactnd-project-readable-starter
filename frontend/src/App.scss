@@ -29,3 +29,42 @@ body {
 .selected div[role=button] {
   background: rgba(0, 0, 0, 0.12);
 }
+
+.logo-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.add-btn {
+  position: fixed; 
+  bottom: 20px; 
+  right: 20px;
+}
+
+.error-message {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 50px 20px 30px;
+
+  .title {
+    font: 600 45px/1.5em brandon-grotesque,sans-serif;
+    color: #3b4450;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  .message {
+    font: 300 20px "Open Sans",open-sans,sans-serif;
+    color: black;
+    text-align: center;
+  }
+
+  .small {
+    font: 600 8px brandon-grotesque,sans-serif;
+    color: #0479da;
+  }
+}

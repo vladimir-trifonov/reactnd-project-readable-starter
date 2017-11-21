@@ -1,7 +1,7 @@
 /* global fetch */
-const apiHost = process.env.REACT_APP_API_HOST
+import { LOAD_CATEGORIES } from './types'
 
-export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
+const apiHost = process.env.REACT_APP_API_HOST
 
 const loadCategoriesAction = categories => ({
   type: LOAD_CATEGORIES,

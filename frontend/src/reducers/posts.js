@@ -1,4 +1,4 @@
-import { LOAD_POST, ADD_POST, LOAD_POSTS, ORDER_POSTS_BY, DELETE_POST, START_EDIT_POST, UPDATE_POST, STOP_EDIT_POST } from '../actions/posts'
+import { LOAD_POST, ADD_POST, LOAD_POSTS, ORDER_POSTS_BY, DELETE_POST, START_EDIT_POST, UPDATE_POST, STOP_EDIT_POST } from '../actions/types'
 
 const posts = (state = [], action) => {
   switch (action.type) {

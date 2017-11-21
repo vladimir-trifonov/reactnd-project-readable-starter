@@ -1,4 +1,4 @@
-import { ADD_COMMENT, DELETE_COMMENT, LOAD_COMMENTS, START_EDIT_COMMENT, UPDATE_COMMENT, STOP_EDIT_COMMENT } from '../actions/comments'
+import { ADD_COMMENT, DELETE_COMMENT, LOAD_COMMENTS, START_EDIT_COMMENT, UPDATE_COMMENT, STOP_EDIT_COMMENT } from '../actions/types'
 
 const comments = (state = [], action) => {
   switch (action.type) {

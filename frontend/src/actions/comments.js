@@ -1,12 +1,7 @@
 /* global fetch */
-const apiHost = process.env.REACT_APP_API_HOST
+import { LOAD_COMMENTS, ADD_COMMENT, DELETE_COMMENT, UPDATE_COMMENT, START_EDIT_COMMENT, STOP_EDIT_COMMENT } from './types'
 
-export const LOAD_COMMENTS = 'LOAD_COMMENTS'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const UPDATE_COMMENT = 'UPDATE_COMMENT'
-export const START_EDIT_COMMENT = 'START_EDIT_COMMENT'
-export const STOP_EDIT_COMMENT = 'STOP_EDIT_COMMENT'
+const apiHost = process.env.REACT_APP_API_HOST
 
 const loadCommentsAction = comments => ({
   type: LOAD_COMMENTS,

@@ -58,19 +58,18 @@ class EditComment extends PureComponent {
 
     return (
       <div>
-        <Button onClick={this.show} style={{ position: 'fixed', bottom: '20px', right: '20px' }} floating tooltipLabel='Edit comment' tooltipPosition='top'>edit</Button>
         <DialogContainer
           id='edit-comment-dialog'
           title='Edit comment'
           visible={visible}
           actions={actions}
           onHide={this.hide}
-          initialFocus='body'
-          focusOnMount='true'
-          containFocus='true'
+          initialFocus='author'
+          focusOnMount={true}
+          containFocus={true}
           contentClassName='md-grid'
         >
-          <TextField id='author' label='Author' className={classes} defaultValue='Anonymous' value={this.state.updated ? this.state.updated.author : this.props.comment.author} onChange={this.handleTextFieldChange('author')} />
+          <TextField id='author' label='Author' className={classes} value={this.state.updated ? this.state.updated.author : this.props.comment.author} onChange={this.handleTextFieldChange('author')} />
           <TextField id='body' label='Comment' rows={2} className={classes} value={this.state.updated ? this.state.updated.body : this.props.comment.body} onChange={this.handleTextFieldChange('body')} />
         </DialogContainer>
       </div>
@@ -84,9 +83,9 @@ EditComment.propTypes = {
   updateCommentActionCreator: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({comments}, {commentId}) => {
   return {
-    comment: Object.assign({}, state.comments.find(c => c.id === ownProps.commentId))
+    comment: Object.assign({}, comments.find(c => c.id === commentId))
   }
 }
 

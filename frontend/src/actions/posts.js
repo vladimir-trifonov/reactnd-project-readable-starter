@@ -1,14 +1,7 @@
 /* global fetch */
-const apiHost = process.env.REACT_APP_API_HOST
+import { LOAD_POST, ORDER_POSTS_BY, LOAD_POSTS, ADD_POST, DELETE_POST, UPDATE_POST, START_EDIT_POST, STOP_EDIT_POST } from './types'
 
-export const LOAD_POSTS = 'LOAD_POSTS'
-export const ADD_POST = 'ADD_POST'
-export const ORDER_POSTS_BY = 'ORDER_POSTS_BY'
-export const LOAD_POST = 'LOAD_POST'
-export const DELETE_POST = 'DELETE_POST'
-export const UPDATE_POST = 'UPDATE_POST'
-export const START_EDIT_POST = 'START_EDIT_POST'
-export const STOP_EDIT_POST = 'STOP_EDIT_POST'
+const apiHost = process.env.REACT_APP_API_HOST
 
 const loadPostAction = post => ({
   type: LOAD_POST,
@@ -82,14 +75,20 @@ export function addPost (dispatch, currentCategory, post) {
     .catch(error => console.error(error))
 }
 
-export function loadPost (dispatch, postId) {
+export function loadPost (dispatch, postId, onMissingPostCb) {
   return fetch(`${apiHost}/posts/${postId}`, {
     headers: {
       'Authorization': 'readable-app'
     }
   })
     .then(response => response.json())
-    .then(post => dispatch(loadPostAction(post)))
+    .then(post => {
+      if (post && post.id) {
+        dispatch(loadPostAction(post))
+      } else {
+        onMissingPostCb()
+      }
+    })
     .catch(error => console.error(error))
 }
 
