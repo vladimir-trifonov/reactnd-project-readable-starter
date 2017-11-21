@@ -4061,9 +4061,15 @@ body {
 .md-card-title {
   padding-bottom: 5px; }
 
-.md-btn {
-  padding: 2px; }
+.md-btn:not(.add-btn) {
+  padding: 2px;
+  width: 30px;
+  height: 30px; }
 
-.vote-score-text {
-  margin-bottom: 10px;
+.vote-score-card-text {
+  margin-bottom: 6px;
+  display: inline-block; }
+
+.vote-score-item-text {
+  margin-bottom: 4px;
   display: inline-block; }

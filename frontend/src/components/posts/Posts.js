@@ -7,7 +7,7 @@ import { Button } from 'react-md'
 import SelectField from 'react-md/lib/SelectFields'
 import sortBy from 'sort-by'
 
-import { loadPosts, orderPostsBy, deletePost, startEditPost } from '../../actions/posts'
+import { loadPosts, orderPostsBy, deletePost, startEditPost, voteDownPost, voteUpPost } from '../../actions/posts'
 import EditPost from './EditPost'
 
 const ORDER_BY = ['Vote', 'Date']
@@ -29,6 +29,8 @@ class Posts extends PureComponent {
     this.startEditPost = this.startEditPost.bind(this)
     this.deletePost = this.deletePost.bind(this)
     this.changePostsOrder = this.changePostsOrder.bind(this)
+    this.voteUp = this.voteUp.bind(this)
+    this.voteDown = this.voteDown.bind(this)
   }
 
   componentDidMount () {
@@ -57,6 +59,20 @@ class Posts extends PureComponent {
     }
   }
 
+  voteDown (postId) {
+    return (e) => {
+      e.preventDefault()
+      this.props.voteDownPostActionCreator(postId)
+    }
+  }
+
+  voteUp (postId) {
+    return (e) => {
+      e.preventDefault()
+      this.props.voteUpPostActionCreator(postId)
+    }
+  }
+
   render () {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
@@ -71,6 +87,7 @@ class Posts extends PureComponent {
         {this.props.posts.map(post => (
           <NavLink key={post.id} to={`/${post.category}/${post.id}`} className='nav-link'>
             <ListItem primaryText={post.title}>
+              <Button icon iconClassName='material-icons' onClick={this.voteDown(post.id)} >favorite_border</Button><span className='vote-score-item-text'>{post.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(post.id)}>favorite</Button>
               <Button icon iconChildren='close' onClick={this.deletePost(post.id)} />
               <Button icon iconChildren='edit' onClick={this.startEditPost(post.id)} />
             </ListItem>
@@ -91,7 +108,9 @@ Posts.propTypes = {
   orderPostsByActionCreator: PropTypes.func.isRequired,
   startEditPostActionCreator: PropTypes.func.isRequired,
   deletePostActionCreator: PropTypes.func.isRequired,
-  editedPostId: PropTypes.string
+  editedPostId: PropTypes.string,
+  voteDownPostActionCreator: PropTypes.func.isRequired,
+  voteUpPostActionCreator: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({orderPostsBy, posts, editedPostId}) => {
@@ -107,7 +126,9 @@ const mapDispatchToProps = dispatch => {
     loadPostsActionCreator: (category) => loadPosts(dispatch, category),
     orderPostsByActionCreator: (orderBy) => orderPostsBy(dispatch, orderBy),
     deletePostActionCreator: (postId) => deletePost(dispatch, postId),
-    startEditPostActionCreator: (postId) => startEditPost(dispatch, postId)
+    startEditPostActionCreator: (postId) => startEditPost(dispatch, postId),
+    voteDownPostActionCreator: (postId) => voteDownPost(dispatch, postId),
+    voteUpPostActionCreator: (postId) => voteUpPost(dispatch, postId)
   }
 }
 

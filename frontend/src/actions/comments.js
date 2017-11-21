@@ -90,3 +90,31 @@ export function startEditComment (dispatch, commentId) {
 export function stopEditComment (dispatch) {
   dispatch(stopEditCommentAction())
 }
+
+export function voteUpComment (dispatch, commentId) {
+  return fetch(`${apiHost}/comments/${commentId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'upVote' }),
+    headers: {
+      'Authorization': 'readable-app',
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => dispatch(updateCommentAction(result)))
+    .catch(error => console.error(error))
+}
+
+export function voteDownComment (dispatch, commentId) {
+  return fetch(`${apiHost}/comments/${commentId}`, {
+    method: 'POST',
+    body: JSON.stringify({ option: 'downVote' }),
+    headers: {
+      'Authorization': 'readable-app',
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(result => dispatch(updateCommentAction(result)))
+    .catch(error => console.error(error))
+}

@@ -5,7 +5,7 @@ import { List, ListItem } from 'react-md/lib/Lists'
 import sortBy from 'sort-by'
 import { Button } from 'react-md'
 
-import { deleteComment, loadComments, startEditComment } from '../../actions/comments'
+import { deleteComment, loadComments, startEditComment, voteDownComment, voteUpComment } from '../../actions/comments'
 import EditComment from './EditComment'
 
 const getOrderedComments = (comments) => {
@@ -18,6 +18,8 @@ class Comments extends PureComponent {
 
     this.startEditComment = this.startEditComment.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
+    this.voteUp = this.voteUp.bind(this)
+    this.voteDown = this.voteDown.bind(this)
   }
 
   componentDidMount () {
@@ -40,11 +42,20 @@ class Comments extends PureComponent {
     }
   }
 
+  voteDown (commentId) {
+    return () => { this.props.voteDownCommentActionCreator(commentId) }
+  }
+
+  voteUp (commentId) {
+    return () => { this.props.voteUpCommentActionCreator(commentId) }
+  }
+
   render () {
     return (
       <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
         {this.props.comments.map(comment => (
           <ListItem key={comment.id} primaryText={comment.body}>
+            <Button icon iconClassName='material-icons' onClick={this.voteDown(comment.id)} >favorite_border</Button><span className='vote-score-item-text'>{comment.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(comment.id)}>favorite</Button>
             <Button icon iconChildren='close' onClick={this.deleteComment(comment.id)} />
             <Button icon iconChildren='edit' onClick={this.startEditComment(comment.id)} />
           </ListItem>
@@ -62,7 +73,9 @@ Comments.propTypes = {
   loadCommentsActionCreator: PropTypes.func.isRequired,
   startEditCommentActionCreator: PropTypes.func.isRequired,
   deleteCommentActionCreator: PropTypes.func.isRequired,
-  editedCommentId: PropTypes.string
+  editedCommentId: PropTypes.string,
+  voteDownCommentActionCreator: PropTypes.func.isRequired,
+  voteUpCommentActionCreator: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({comments, editedCommentId}) => {
@@ -76,7 +89,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadCommentsActionCreator: (category) => loadComments(dispatch, category),
     deleteCommentActionCreator: (commentId) => deleteComment(dispatch, commentId),
-    startEditCommentActionCreator: (commentId) => startEditComment(dispatch, commentId)
+    startEditCommentActionCreator: (commentId) => startEditComment(dispatch, commentId),
+    voteDownCommentActionCreator: (postId) => voteDownComment(dispatch, postId),
+    voteUpCommentActionCreator: (postId) => voteUpComment(dispatch, postId)
   }
 }
 
