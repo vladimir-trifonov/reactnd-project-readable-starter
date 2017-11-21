@@ -75,7 +75,7 @@ class Posts extends PureComponent {
 
   render () {
     return (
-      <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='md-cell--8-tablet md-cell md-cell--12 md-paper md-paper--1'>
         <SelectField
           id='posts-order'
           label='Posts by'
@@ -86,10 +86,12 @@ class Posts extends PureComponent {
         />
         {this.props.posts.map(post => (
           <NavLink key={post.id} to={`/${post.category}/${post.id}`} className='nav-link'>
-            <ListItem primaryText={post.title}>
-              <Button icon iconClassName='material-icons' onClick={this.voteDown(post.id)} >favorite_border</Button><span className='vote-score-item-text'>{post.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(post.id)}>favorite</Button>
-              <Button icon iconChildren='close' onClick={this.deletePost(post.id)} />
-              <Button icon iconChildren='edit' onClick={this.startEditPost(post.id)} />
+            <ListItem primaryText={`Author: ${post.author}, Comments: ${post.commentsCount}`} secondaryText={post.title}>
+              <div className='pull-right'>
+                <Button icon iconClassName='material-icons' onClick={this.voteDown(post.id)} >favorite_border</Button><span className='vote-score-item-text'>{post.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(post.id)}>favorite</Button>
+                <Button icon iconChildren='close' onClick={this.deletePost(post.id)} />
+                <Button icon iconChildren='edit' onClick={this.startEditPost(post.id)} />
+              </div>
             </ListItem>
           </NavLink>
         ))}

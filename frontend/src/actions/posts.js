@@ -46,6 +46,21 @@ export function orderPostsBy (dispatch, orderPostsBy) {
   return dispatch(orderPostsByAction(orderPostsBy))
 }
 
+function getPostCommentsCount (postId) {
+  return fetch(`${apiHost}/posts/${postId}/comments`, {
+    headers: {
+      'Authorization': 'readable-app'
+    }
+  })
+    .then(response => response.json())
+    .then(comments => {
+      let result = {}
+      result[postId] = comments.length
+      return result
+    })
+    .catch(error => console.error(error))
+}
+
 export function loadPosts (dispatch, category) {
   return fetch(`${apiHost}/${category ? `${category}/` : ''}posts`, {
     headers: {
@@ -53,7 +68,25 @@ export function loadPosts (dispatch, category) {
     }
   })
     .then(response => response.json())
-    .then(posts => dispatch(loadPostsAction(posts)))
+    .then(posts => {
+      // Get comments for every post, because we need their count
+      Promise.all(posts.map(post => getPostCommentsCount(post.id)))
+        .then(commentsCountByPosts => {
+          // Flatten the objects of { postId: commentsCount } objects
+          commentsCountByPosts = commentsCountByPosts.reduce((res, curr) => {
+            let postId = Object.keys(curr)[0]
+            res[postId] = curr[postId]
+            return res
+          }, {})
+
+          // Add commentsCount prop to the post
+          posts = posts.map(post => {
+            post.commentsCount = commentsCountByPosts[post.id]
+            return post
+          })
+          dispatch(loadPostsAction(posts))
+        })
+    })
     .catch(error => console.error(error))
 }
 
@@ -104,6 +137,15 @@ export function deletePost (dispatch, postId) {
     .catch(error => console.error(error))
 }
 
+// Get comments count by post id and fire updatePostAction
+function getPostCommentsAndDispathUpdateAction (dispatch, result) {
+  getPostCommentsCount(result.id)
+    .then(commentsCount => {
+      result.commentsCount = commentsCount[result.id]
+      dispatch(updatePostAction(result))
+    })
+}
+
 export function updatePost (dispatch, currentCategory, post) {
   return fetch(`${apiHost}/posts/${post.id}`, {
     method: 'PUT',
@@ -116,7 +158,7 @@ export function updatePost (dispatch, currentCategory, post) {
     .then(response => response.json())
     .then(result => {
       if (!currentCategory || currentCategory === result.category) {
-        dispatch(updatePostAction(result))
+        getPostCommentsAndDispathUpdateAction(dispatch, result)
       } else {
         dispatch(deletePostAction(result.id))
       }
@@ -146,7 +188,7 @@ export function voteUpPost (dispatch, postId, isDetails) {
       if (isDetails) {
         dispatch(loadPostAction(result))
       } else {
-        dispatch(updatePostAction(result))
+        getPostCommentsAndDispathUpdateAction(dispatch, result)
       }
     })
     .catch(error => console.error(error))
@@ -166,7 +208,7 @@ export function voteDownPost (dispatch, postId, isDetails) {
       if (isDetails) {
         dispatch(loadPostAction(result))
       } else {
-        dispatch(updatePostAction(result))
+        getPostCommentsAndDispathUpdateAction(dispatch, result)
       }
     })
     .catch(error => console.error(error))

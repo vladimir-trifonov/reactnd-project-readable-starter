@@ -14,7 +14,7 @@ class Categories extends Component {
 
   render () {
     return (
-      <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='md-cell--12-tablet md-cell md-cell--12 md-paper md-paper--1'>
         <Subheader primaryText='Categories' />
         {this.props.categories.map(category => (
           <NavLink activeClassName='selected' key={category.name} to={`/${category.path}`} className='nav-link'>

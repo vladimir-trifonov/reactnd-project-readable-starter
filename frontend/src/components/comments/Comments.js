@@ -52,12 +52,14 @@ class Comments extends PureComponent {
 
   render () {
     return (
-      <List className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
+      <List className='md-cell--8-tablet md-cell md-cell--12 md-paper md-paper--1'>
         {this.props.comments.map(comment => (
-          <ListItem key={comment.id} primaryText={comment.body}>
-            <Button icon iconClassName='material-icons' onClick={this.voteDown(comment.id)} >favorite_border</Button><span className='vote-score-item-text'>{comment.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(comment.id)}>favorite</Button>
-            <Button icon iconChildren='close' onClick={this.deleteComment(comment.id)} />
-            <Button icon iconChildren='edit' onClick={this.startEditComment(comment.id)} />
+          <ListItem key={comment.id} primaryText={`Author: ${comment.author}`} secondaryText={comment.body}>
+            <div className='pull-right'>
+              <Button icon iconClassName='material-icons' onClick={this.voteDown(comment.id)} >favorite_border</Button><span className='vote-score-item-text'>{comment.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp(comment.id)}>favorite</Button>
+              <Button icon iconChildren='close' onClick={this.deleteComment(comment.id)} />
+              <Button icon iconChildren='edit' onClick={this.startEditComment(comment.id)} />
+            </div>
           </ListItem>
         ))}
 

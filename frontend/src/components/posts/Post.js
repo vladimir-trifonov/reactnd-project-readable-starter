@@ -33,7 +33,7 @@ class Post extends PureComponent {
 
   render () {
     return (
-      <Card className='md-cell--8-tablet md-cell md-cell--6 md-paper md-paper--1'>
+      <Card className='md-cell--12-tablet md-cell md-cell--12 md-paper md-paper--1'>
         <CardTitle title={this.props.post.title || ''} subtitle={`Author: ${this.props.post.author}`} />
         <CardText>
           <Button icon iconClassName='material-icons' onClick={this.voteDown} >favorite_border</Button><span className='vote-score-card-text'>{this.props.post.voteScore}</span><Button icon iconClassName='material-icons' onClick={this.voteUp}>favorite</Button>
